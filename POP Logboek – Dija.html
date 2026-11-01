@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>POP Logboek – Dija</title>
+<style>
+:root{--bg:#f1ede4;--card:#fffefb;--ink:#2a2d2b;--mut:#78786e;--line:#e6dfd0;--g:#6b8d6f;--gs:#e2ebe0;--r:#b0604c;--rs:#f5e2db;--a:#b99654;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#1e1f1c;--card:#292a26;--ink:#efeade;--mut:#a7a597;--line:#3b3c36;--g:#8fb092;--gs:#33423a;--r:#d98a74;--rs:#4a332d;--a:#d1ae6a}}
+:root[data-theme=dark]{--bg:#1e1f1c;--card:#292a26;--ink:#efeade;--mut:#a7a597;--line:#3b3c36;--g:#8fb092;--gs:#33423a;--r:#d98a74;--rs:#4a332d;--a:#d1ae6a}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3{font-family:"Fraunces",Georgia,"Times New Roman",serif;font-weight:500;margin:0 0 .5rem;letter-spacing:-.01em}
+h1{font-size:2rem}h2{font-size:1.35rem}h3{font-size:1.05rem}
+nav{position:fixed;left:0;top:0;bottom:0;width:224px;padding:24px 14px;background:var(--card);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:4px;z-index:5}
+nav b{font-family:Georgia,serif;font-weight:500;font-size:1.15rem;padding:0 10px 14px}
+nav button{all:unset;cursor:pointer;padding:9px 12px;border-radius:10px;color:var(--mut);transition:background .2s,color .2s}
+nav button:hover{background:var(--gs)}nav button.on{background:var(--gs);color:var(--ink);font-weight:600}
+main{margin-left:224px;padding:32px clamp(16px,4vw,48px) 60px;max-width:1100px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}.grid .card{margin:0}
+.mut,small{color:var(--mut)}.big{font-size:2rem;font-family:Georgia,serif;line-height:1.1}
+.bar{height:8px;border-radius:8px;background:var(--line);overflow:hidden;margin:10px 0}.bar i{display:block;height:100%;background:var(--g);transition:width .5s}
+button.b,.b{cursor:pointer;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:7px 13px;font:inherit}
+button.p{background:var(--g);color:#fff;border-color:var(--g)}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--a);outline-offset:1px}
+form.f{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));align-items:end}
+label{display:grid;gap:4px;font-size:13px;color:var(--mut)}label.w{grid-column:1/-1}
+input,textarea,select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:8px 10px;width:100%}
+textarea{min-height:76px;resize:vertical}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:600px}th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{font-weight:600;color:var(--mut);font-size:13px}
+tr.ok td:nth-child(5){color:var(--g);font-weight:600}tr.bad{background:var(--rs)}tr.bad td:nth-child(5){color:var(--r);font-weight:600}
+.act{white-space:nowrap}.act button{margin-right:4px;padding:4px 9px;font-size:13px}
+.tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;background:var(--gs);color:var(--g)}.tag.r{background:var(--rs);color:var(--r)}.tag.a{background:var(--line);color:var(--a)}
+.chart{width:100%;height:auto}.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}.chips .b.on{background:var(--gs);border-color:var(--g)}
+.plot{position:relative;height:110px;display:flex;align-items:flex-end;gap:10px}.plot .col{flex:1;border-radius:6px 6px 0 0;min-height:2px}.plot hr{position:absolute;left:0;right:0;margin:0;border:0;border-top:2px dashed var(--a)}
+.lab{display:flex;gap:10px;text-align:center}.lab div{flex:1;display:grid;font-size:12px;color:var(--mut)}
+.tl{display:grid;grid-template-columns:repeat(15,1fr);gap:4px}.tl div{height:34px;border-radius:7px;background:var(--line);font-size:11px;display:grid;place-items:center;color:var(--mut);cursor:pointer}.tl .past{background:var(--gs);color:var(--g)}.tl .now{background:var(--g);color:#fff}.tl .ev{outline:2px solid var(--a)}
+.stk{display:flex;height:22px;border-radius:8px;overflow:hidden}.stk i{display:block}
+#toast{position:fixed;right:16px;top:calc(16px + env(safe-area-inset-top,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;opacity:0;transition:opacity .3s;z-index:9;pointer-events:none}
+#print{display:none}
+@media(max-width:800px){nav{top:auto;width:auto;right:0;flex-direction:row;overflow-x:auto;padding:6px calc(6px + env(safe-area-inset-left,0px)) calc(6px + env(safe-area-inset-bottom,0px));border-right:0;border-top:1px solid var(--line)}nav b{display:none}nav button{white-space:nowrap;font-size:13px;padding:8px 10px}main{margin-left:0;padding-bottom:90px}.tl{grid-template-columns:repeat(8,1fr)}}
+@media print{body>*:not(#print){display:none!important}#print{display:block;padding:10px;color:#000;background:#fff;font-size:12px}#print td,#print th{border:1px solid #bbb;padding:4px}#print table{min-width:0}#print h2{margin-top:18px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<nav id="nav"></nav><main id="main"></main><div id="toast"></div><div id="print"></div>
+<script>
+const SI='2026-10-26',EI='2027-02-07';
+const pad=n=>String(n).padStart(2,'0'),iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const P=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
+const dd=(a,b)=>Math.round((P(b)-P(a))/864e5),add=(s,n)=>{const d=P(s);d.setDate(d.getDate()+n);return iso(d)};
+const T=()=>iso(new Date()),wk=s=>Math.floor(dd(SI,s)/7)+1,inP=s=>s>=SI&&s<=EI;
+const curW=()=>{const t=T();return t<SI?0:t>EI?16:wk(t)};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fd=s=>P(s).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+let D;try{D=JSON.parse(localStorage.getItem('pop1'))}catch(e){}
+D=Object.assign({sleep:[],assign:[],study:[],refl:{},evals:{}},D||{});
+const save=()=>{try{localStorage.setItem('pop1',JSON.stringify(D))}catch(e){}};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+let view='dash',edit=null,pend=null,filt='all',sw=Math.min(15,Math.max(1,curW())),rw=sw;
+const NAV=[['dash','Dashboard'],['sleep','Sleep Tracker'],['assign','Assignment Tracker'],['study','Study Tracker'],['refl','Weekly Reflections'],['eval','Evaluations'],['goals','My POP Goals']];
+function msg(t){const e=document.getElementById('toast');e.textContent=t;e.style.opacity=1;clearTimeout(msg.t);msg.t=setTimeout(()=>e.style.opacity=0,2800)}
+const go=v=>{view=v;edit=null;pend=null;render();scrollTo(0,0)};
+const ed=(k,id)=>{edit={k,id};render();scrollTo(0,0)};
+function del(k,id){if(pend===id){D[k]=D[k].filter(x=>x.id!==id);pend=null;save();msg('Entry deleted')}else pend=id;render()}
+const bar=p=>`<div class="bar"><i style="width:${p}%"></i></div>`;
+const cur=k=>edit&&edit.k===k?D[k].find(x=>x.id===edit.id)||{}:{};
+const btn=(k,id)=>`<td class="act"><button onclick="ed('${k}','${id}')">Edit</button><button onclick="del('${k}','${id}')">${pend===id?'Confirm?':'Delete'}</button></td>`;
+/* calculations */
+function hrs(b,w){const[a,c]=b.split(':').map(Number),[d,e]=w.split(':').map(Number);let m=d*60+e-(a*60+c);if(m<0)m+=1440;return m/60}
+function sStats(){const c=D.sleep.filter(e=>e.cls),ok=c.filter(e=>e.h>=7),s=[...c].sort((a,b)=>a.date<b.date?-1:1);let best=0,run=0;s.forEach(e=>{run=e.h>=7?run+1:0;best=Math.max(best,run)});
+return{n:D.sleep.length,c:c.length,ok:ok.length,avg:c.length?c.reduce((a,e)=>a+e.h,0)/c.length:0,pct:c.length?Math.round(ok.length/c.length*100):0,best}}
+const aInt=a=>add(a.off,-2),aSt=a=>a.done?(a.done<=aInt(a)?'early':'late'):(T()>a.off?'overdue':'open');
+const dayMin=d=>D.study.filter(e=>e.date===d).reduce((a,e)=>a+e.min,0);
+const wkDays=w=>[...Array(7)].map((_,i)=>add(SI,(w-1)*7+i));
+function wStudy(w){const m=wkDays(w).map(dayMin);return{m,ok:m.filter(x=>x>=60).length,st:m.filter(x=>x>0).length,tot:m.reduce((a,b)=>a+b,0)}}
+const wSleep=w=>D.sleep.filter(e=>e.cls&&wk(e.date)===w&&e.h>=7).length;
+const RQ={sleep:['Wat ging goed?','Wat maakte het moeilijk om op tijd naar bed te gaan?','Wat ga ik volgende week anders doen?'],
+assign:['Welke opdrachten heb ik deze week afgerond?','Heb ik mijn interne deadlines gehaald? Zo niet, waarom?','Wat ga ik doen om mijn planning te verbeteren?'],
+study:['Op hoeveel dagen heb ik daadwerkelijk minimaal één uur gestudeerd?','Wat hielp mij om mij aan mijn planning te houden?','Wat leidde mij af of zorgde ervoor dat ik niet ging studeren?','Wat ga ik volgende week aanpassen?']};
+const RT={sleep:'Sleep',assign:'Assignments',study:'Studying'};
+const EQ=['In hoeverre heb ik mijn drie doelen behaald?','Welke vooruitgang heb ik geboekt?','Welke problemen kwam ik tegen?','Welke aanpassingen ga ik maken aan mijn actieplan?','Wat heb ik over mezelf geleerd?'];
+const rDone=(w,k)=>{const r=D.refl[w+k];return !!r&&RQ[k].every((q,i)=>(r.a[i]||'').trim())};
+const eDone=n=>{const r=D.evals['e'+n];return !!r&&EQ.every((q,i)=>(r.a[i]||'').trim())};
+const stat=(d,t)=>`<span class="tag ${d?'':'r'}">${d?'Completed':'Incomplete'}</span>${t?` <small>Updated ${new Date(t).toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'})}</small>`:''}`;
+/* charts */
+function line(pts){if(!pts.length)return'<p class="mut">Add entries to see your sleep chart.</p>';const W=600,H=200,p=28,mx=Math.max(10,Math.ceil(Math.max(...pts.map(q=>q.y)))),X=i=>p+(pts.length>1?i*(W-2*p)/(pts.length-1):(W-2*p)/2),Y=v=>H-p-v/mx*(H-2*p);
+return`<svg viewBox="0 0 ${W} ${H}" class="chart"><line x1="${p}" x2="${W-p}" y1="${Y(7)}" y2="${Y(7)}" stroke="var(--a)" stroke-dasharray="5 4"/><text x="${W-p}" y="${Y(7)-4}" text-anchor="end" font-size="11" fill="var(--a)">7 h target</text><polyline fill="none" stroke="var(--g)" stroke-width="2" points="${pts.map((q,i)=>X(i)+','+Y(q.y)).join(' ')}"/>${pts.map((q,i)=>`<circle cx="${X(i)}" cy="${Y(q.y)}" r="4" fill="${q.y>=7?'var(--g)':'var(--r)'}"><title>${q.x}: ${q.y.toFixed(1)} h</title></circle>`).join('')}<text x="4" y="${Y(0)}" font-size="10" fill="var(--mut)">0</text><text x="4" y="${Y(mx)+8}" font-size="10" fill="var(--mut)">${mx}h</text></svg>`}
+function bars(m,lbl,line,mx0,unit){const mx=Math.max(mx0,...m);return`<div class="plot">${m.map(v=>`<div class="col" style="height:${v/mx*100}%;background:${v>=line?'var(--g)':v>0?'var(--a)':'var(--line)'}"></div>`).join('')}<hr style="bottom:${line/mx*100}%"></div><div class="lab">${m.map((v,i)=>`<div><b>${lbl[i]}</b>${v}${unit}</div>`).join('')}</div>`}
+/* views */
+const V={};
+V.dash=()=>{const h=new Date().getHours(),g=h<12?'Good morning':h<18?'Good afternoon':'Good evening',cw=curW(),t=T(),ss=sStats();
+const left=Math.max(0,dd(t,EI)),wl=cw===0?`Starts in ${dd(t,SI)} days`:cw>15?'POP period finished':`Week ${cw} of 15`;
+const sa=D.assign.filter(a=>aSt(a)==='early').length,sl=D.assign.filter(a=>aSt(a)==='late').length,tot=D.assign.length,ap=tot?Math.round(sa/tot*100):0;
+const el=Math.min(15,Math.max(0,cw)),ach=[...Array(el)].filter((_,i)=>wStudy(i+1).ok>=5).length,sp=el?Math.round(ach/el*100):0;
+const w=Math.min(15,Math.max(1,cw)),ws=wStudy(w),wr=[...Array(15)].filter((_,i)=>rDone(i+1,'sleep')&&rDone(i+1,'assign')&&rDone(i+1,'study')).length;
+const sw3=[...Array(15)].map((_,i)=>wStudy(i+1).ok);
+return`<h1>${g}, Dija</h1><p class="mut">${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})} · ${wl} · ${left} days until 7 February 2027</p>
+<div class="card"><h3>Timeline</h3><div class="tl">${[...Array(15)].map((_,i)=>{const n=i+1;return`<div class="${n<cw?'past':n===cw?'now':''} ${[5,10,15].includes(n)?'ev':''}" onclick="go('${[5,10,15].includes(n)?'eval':'refl'}');rw=${n}" title="Week ${n} starts ${fd(add(SI,i*7))}">${n}</div>`}).join('')}</div><small>Outlined weeks (5, 10, 15) are evaluation moments. Week 15 ends on the final deadline, 7 Feb 2027.</small></div>
+<div class="grid"><div class="card"><h3>Goal 1 · Sleep</h3><small>Target: at least 7 hours before every class day</small><div class="big">${ss.pct}%</div>${bar(ss.pct)}<small>${ss.ok} of ${ss.c} class nights reached 7 h</small><p><button class="b p" onclick="go('sleep')">Open sleep tracker</button></p></div>
+<div class="card"><h3>Goal 2 · Assignments</h3><small>Target: finish at least 2 days before the deadline</small><div class="big">${ap}%</div>${bar(ap)}<small>${sa} of ${tot} assignments finished early</small><p><button class="b p" onclick="go('assign')">Open assignments</button></p></div>
+<div class="card"><h3>Goal 3 · Studying</h3><small>Target: 1 hour on at least 5 days per week</small><div class="big">${sp}%</div>${bar(sp)}<small>${ach} of ${el} weeks reached 5 days</small><p><button class="b p" onclick="go('study')">Open study tracker</button></p></div></div>
+<div class="card" style="margin-top:18px"><h3>This week${cw>=1&&cw<=15?'':' (showing week '+w+')'}</h3><div class="grid"><div><div class="big">${wSleep(w)}</div><small>nights with 7+ h (class days)</small></div><div><div class="big">${D.assign.filter(a=>a.done&&wk(a.done)===w&&aSt(a)==='early').length}</div><small>assignments completed on time</small></div><div><div class="big">${ws.ok}<small> / 5</small></div><small>days studied 1 h+</small></div><div><div class="big">${[ 'sleep','assign','study'].filter(k=>rDone(w,k)).length}<small> / 3</small></div><small>reflections completed (${wr} full weeks in total)</small></div></div></div>
+<div class="card"><h3>Study days of 1 h+ per week</h3>${bars(sw3,sw3.map((_,i)=>'W'+(i+1)),5,5,'')}<small>Dashed line: weekly target of 5 days.</small></div>`};
+V.sleep=()=>{const s=sStats(),e=cur('sleep'),ws={};D.sleep.filter(x=>x.cls).forEach(x=>{(ws[wk(x.date)]=ws[wk(x.date)]||[]).push(x.h)});
+const rows=[...D.sleep].sort((a,b)=>a.date<b.date?1:-1).map(x=>`<tr class="${x.cls?x.h>=7?'ok':'bad':''}"><td>${fd(x.date)}</td><td>${x.bed}</td><td>${x.wake}</td><td>${x.h.toFixed(1)} h</td><td>${x.cls?x.h>=7?'Yes':'No':'Not a class day'}</td><td>${esc(x.note)}</td>${btn('sleep',x.id)}</tr>`).join('')||'<tr><td colspan="7" class="mut">No entries yet. Log last night above.</td></tr>';
+return`<h1>Sleep Tracker</h1><p class="mut">Ik slaap minimaal zeven uur per nacht vóór een lesdag.</p>
+<div class="card"><h3>${e.id?'Edit entry':'New entry'}</h3><form class="f" onsubmit="sleepSave(event)"><label>Date of the class day (morning you wake up)<input type="date" name="date" min="${SI}" max="${EI}" value="${e.date||''}" required></label><label>Bedtime<input type="time" name="bed" value="${e.bed||''}" required></label><label>Wake-up time<input type="time" name="wake" value="${e.wake||''}" required></label><label><span>Night before a class day?</span><select name="cls"><option value="1" ${e.cls===false?'':'selected'}>Yes</option><option value="0" ${e.cls===false?'selected':''}>No</option></select></label><label class="w">Notes<textarea name="note">${esc(e.note)}</textarea></label><div><button class="b p">${e.id?'Save changes':'Add entry'}</button> ${e.id?'<button type="button" class="b" onclick="edit=null;render()">Cancel</button>':''}</div></form></div>
+<div class="grid"><div class="card"><small>Average (class nights)</small><div class="big">${s.avg.toFixed(1)} h</div></div><div class="card"><small>Nights tracked</small><div class="big">${s.n}</div></div><div class="card"><small>Nights with 7 h+</small><div class="big">${s.ok}</div></div><div class="card"><small>Successful nights</small><div class="big">${s.pct}%</div></div><div class="card"><small>Longest 7 h streak</small><div class="big">${s.best}</div></div></div>
+<div class="card" style="margin-top:18px"><h3>Sleep duration over time</h3>${line([...D.sleep].sort((a,b)=>a.date<b.date?-1:1).map(x=>({x:fd(x.date),y:x.h})))}<div class="chips">${Object.keys(ws).map(k=>`<span class="tag a">Week ${k}: ${(ws[k].reduce((a,b)=>a+b,0)/ws[k].length).toFixed(1)} h avg</span>`).join('')}</div></div>
+<div class="card tw"><table><tr><th>Date</th><th>Bedtime</th><th>Wake-up</th><th>Hours slept</th><th>At least 7 hours?</th><th>Notes</th><th></th></tr>${rows}</table></div>`};
+function sleepSave(ev){ev.preventDefault();const f=new FormData(ev.target),date=f.get('date'),bed=f.get('bed'),wake=f.get('wake');
+if(!inP(date))return msg('Date must be within the POP period (26 Oct 2026 – 7 Feb 2027).');if(bed===wake)return msg('Bedtime and wake-up time cannot be the same.');
+const r={id:edit?edit.id:uid(),date,bed,wake,h:hrs(bed,wake),cls:f.get('cls')==='1',note:f.get('note').trim()};
+if(!edit&&D.sleep.some(x=>x.date===date))return msg('There is already an entry for this date. Edit it instead.');
+if(edit)D.sleep=D.sleep.map(x=>x.id===edit.id?r:x);else D.sleep.push(r);edit=null;save();msg('Sleep entry saved');render()}
+V.assign=()=>{const e=cur('assign'),L=D.assign.filter(a=>filt==='all'||(filt==='completed'&&a.done)||(filt==='overdue'&&aSt(a)==='overdue')||(filt==='upcoming'&&!a.done&&aSt(a)!=='overdue')).sort((a,b)=>a.off<b.off?-1:1);
+const c={early:0,late:0,open:0,overdue:0};D.assign.forEach(a=>c[aSt(a)]++);const tot=D.assign.length,dn=c.early+c.late;
+const rows=L.map(a=>{const s=aSt(a),warn=!a.done&&T()>aInt(a);return`<tr class="${s==='late'||s==='overdue'?'bad':''}"><td>${esc(a.name)}</td><td>${fd(a.off)}</td><td>${fd(aInt(a))}${warn&&s!=='overdue'?' <span class="tag r">internal deadline passed</span>':''}</td><td>${a.done?fd(a.done):'<button class="b" onclick="finish(\''+a.id+'\')">Mark done today</button>'}</td><td>${s==='early'?'Yes':s==='late'?'No (too late)':s==='overdue'?'Overdue':'Not yet'}</td>${btn('assign',a.id)}</tr>`}).join('')||'<tr><td colspan="6" class="mut">No assignments in this view.</td></tr>';
+return`<h1>Assignment Tracker</h1><p class="mut">Ik rond mijn opdrachten minimaal twee dagen vóór de officiële deadline af.</p>
+<div class="card"><h3>${e.id?'Edit assignment':'New assignment'}</h3><form class="f" onsubmit="asSave(event)"><label>Assignment<input name="name" value="${esc(e.name)}" required maxlength="120"></label><label>Official deadline<input type="date" name="off" min="${SI}" max="${EI}" value="${e.off||''}" required></label><label>Completion date (optional)<input type="date" name="done" value="${e.done||''}"></label><div><button class="b p">${e.id?'Save changes':'Add assignment'}</button> ${e.id?'<button type="button" class="b" onclick="edit=null;render()">Cancel</button>':''}</div></form><small>The internal deadline is set automatically to 2 days before the official deadline.</small></div>
+<div class="grid"><div class="card"><small>Total</small><div class="big">${tot}</div></div><div class="card"><small>Completed</small><div class="big">${dn}</div></div><div class="card"><small>2+ days early</small><div class="big">${c.early}</div></div><div class="card"><small>Too late</small><div class="big">${c.late}</div></div><div class="card"><small>Completion rate</small><div class="big">${tot?Math.round(dn/tot*100):0}%</div></div></div>
+<div class="card" style="margin-top:18px"><h3>Performance</h3>${tot?`<div class="stk">${[['early','var(--g)'],['late','var(--r)'],['open','var(--line)'],['overdue','var(--a)']].map(([k,col])=>`<i style="width:${c[k]/tot*100}%;background:${col}" title="${k}: ${c[k]}"></i>`).join('')}</div><small>Green: early · Red: late · Grey: open · Gold: overdue</small>`:'<p class="mut">Add an assignment to see your performance.</p>'}</div>
+<div class="chips">${['all','upcoming','completed','overdue'].map(k=>`<button class="b ${filt===k?'on':''}" onclick="filt='${k}';render()">${k[0].toUpperCase()+k.slice(1)}</button>`).join('')}</div>
+<div class="card tw"><table><tr><th>Assignment</th><th>Official deadline</th><th>Internal deadline</th><th>Completion date</th><th>Completed on time?</th><th></th></tr>${rows}</table></div>`};
+function asSave(ev){ev.preventDefault();const f=new FormData(ev.target),off=f.get('off'),done=f.get('done')||null;
+if(!inP(off))return msg('Deadline must be within the POP period.');if(done&&done>T())return msg('Completion date cannot be in the future.');
+const r={id:edit?edit.id:uid(),name:f.get('name').trim(),off,done};if(!r.name)return msg('Enter an assignment name.');
+if(edit)D.assign=D.assign.map(x=>x.id===edit.id?r:x);else D.assign.push(r);edit=null;save();msg('Assignment saved');render()}
+function finish(id){const a=D.assign.find(x=>x.id===id);a.done=T();save();msg('Marked as completed');render()}
+V.study=()=>{const e=cur('study'),w=wStudy(sw),ds=wkDays(sw),n=w.m.filter(x=>x>0).length;
+const rows=[...D.study].sort((a,b)=>a.date<b.date?1:-1).map(x=>`<tr><td>${fd(x.date)}</td><td>${x.plan||0} min</td><td>${x.min} min${x.start?' ('+x.start+'–'+x.end+')':''}</td><td>${dayMin(x.date)>=60?'<span class="tag">Yes (day total)</span>':'<span class="tag r">No (day total '+dayMin(x.date)+' min)</span>'}</td><td>${esc(x.what)}</td>${btn('study',x.id)}</tr>`).join('')||'<tr><td colspan="6" class="mut">No sessions yet. Add your first study session above.</td></tr>';
+return`<h1>Study Tracker</h1><p class="mut">Ik studeer minimaal vijf dagen per week één uur.</p>
+<div class="card"><h3>${e.id?'Edit session':'New session'}</h3><form class="f" onsubmit="stSave(event)"><label>Date<input type="date" name="date" min="${SI}" max="${EI}" value="${e.date||''}" required></label><label>Planned (minutes)<input type="number" name="plan" min="0" max="1440" value="${e.plan||''}"></label><label>Start (optional)<input type="time" name="start" value="${e.start||''}"></label><label>End (optional)<input type="time" name="end" value="${e.end||''}"></label><label>Or total minutes<input type="number" name="min" min="1" max="1440" value="${e.start?'':e.min||''}"></label><label class="w">What did I study?<input name="what" value="${esc(e.what)}" required maxlength="200"></label><div><button class="b p">${e.id?'Save changes':'Add session'}</button> ${e.id?'<button type="button" class="b" onclick="edit=null;render()">Cancel</button>':''}</div></form><small>Several sessions on one day are allowed; identical sessions are blocked.</small></div>
+<div class="card"><div class="chips"><button class="b" onclick="sw=Math.max(1,sw-1);render()">Previous</button><b style="align-self:center">Week ${sw} · ${fd(ds[0])} – ${fd(ds[6])}</b><button class="b" onclick="sw=Math.min(15,sw+1);render()">Next</button></div>
+<div class="grid"><div><div class="big">${n}</div><small>days studied</small></div><div><div class="big">${(w.tot/60).toFixed(1)} h</div><small>total study time</small></div><div><div class="big">${n?Math.round(w.tot/n):0} min</div><small>average per studied day</small></div><div><div class="big">${w.ok} / 5</div><small>days with 60+ min</small></div></div>
+<p>${w.ok>=5?'<span class="tag">Weekly goal completed</span>':'<span class="tag r">Weekly goal not reached yet</span>'}</p>${bars(w.m,['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],60,120,'m')}<small>Dashed line: 60 minutes. Green bars reached the goal.</small></div>
+<div class="card tw"><table><tr><th>Date</th><th>Planned</th><th>Actual</th><th>At least 1 hour?</th><th>What did I study?</th><th></th></tr>${rows}</table></div>`};
+function stSave(ev){ev.preventDefault();const f=new FormData(ev.target),date=f.get('date'),start=f.get('start'),end=f.get('end');let min=+f.get('min');
+if(!inP(date))return msg('Date must be within the POP period.');if(!!start!==!!end)return msg('Enter both start and end time, or neither.');
+if(start){if(start===end)return msg('Start and end cannot be the same.');min=Math.round(hrs(start,end)*60)}
+if(!min||min<1)return msg('Enter start and end time, or total minutes.');
+const r={id:edit?edit.id:uid(),date,plan:+f.get('plan')||0,start:start||'',end:end||'',min,what:f.get('what').trim()};if(!r.what)return msg('Describe what you studied.');
+if(D.study.some(x=>x.id!==r.id&&x.date===date&&x.min===min&&x.start===r.start&&x.what.toLowerCase()===r.what.toLowerCase()))return msg('This session already exists.');
+if(edit)D.study=D.study.map(x=>x.id===edit.id?r:x);else D.study.push(r);edit=null;save();msg('Session saved');render()}
+function setR(w,k,i,v){const r=D.refl[w+k]||(D.refl[w+k]={a:[],t:null});r.a[i]=v;r.t=new Date().toISOString();save();document.getElementById('s'+w+k).innerHTML=stat(rDone(w,k),r.t)}
+V.refl=()=>{const w=rw,ss=wStudy(w);
+return`<h1>Weekly Reflections</h1><div class="chips">${[...Array(15)].map((_,i)=>{const n=i+1,c=['sleep','assign','study'].filter(k=>rDone(n,k)).length;return`<button class="b ${n===w?'on':''}" onclick="rw=${n};render()" title="${c}/3 completed">W${n} ${c===3?'✓':c?'·'+c:''}</button>`}).join('')}</div>
+<div class="card"><h3>Week ${w} · ${fd(add(SI,(w-1)*7))} – ${fd(add(SI,w*7-1))}</h3><small>From your logs: ${wSleep(w)} class nights with 7 h+ · ${D.assign.filter(a=>a.done&&wk(a.done)===w&&aSt(a)==='early').length} assignments finished early · ${ss.ok} study days of 60+ min</small></div>
+${Object.keys(RQ).map(k=>{const r=D.refl[w+k]||{a:[]};return`<div class="card"><h2>${RT[k]} <span id="s${w}${k}">${stat(rDone(w,k),r.t)}</span></h2>${RQ[k].map((q,i)=>`<label class="w" style="margin-bottom:10px">${i+1}. ${q}<textarea oninput="setR(${w},'${k}',${i},this.value)">${esc(r.a[i])}</textarea></label>`).join('')}</div>`}).join('')}`};
+function setE(n,i,v){const r=D.evals['e'+n]||(D.evals['e'+n]={a:[],date:T(),t:null});if(i<0)r.date=v;else r.a[i]=v;r.t=new Date().toISOString();save();document.getElementById('es'+n).innerHTML=stat(eDone(n),r.t)}
+V.eval=()=>`<h1>Evaluations</h1><p class="mut">Formal evaluation moments in week 5, 10 and 15.</p>${[5,10,15].map(n=>{const r=D.evals['e'+n]||{a:[],date:'',t:null};return`<div class="card"><h2>Week ${n} evaluation <span id="es${n}">${stat(eDone(n),r.t)}</span></h2><label style="max-width:220px;margin-bottom:10px">Date of evaluation<input type="date" min="${SI}" max="${EI}" value="${r.date||''}" oninput="setE(${n},-1,this.value)"></label>${EQ.map((q,i)=>`<label class="w" style="margin-bottom:10px">${i+1}. ${q}<textarea oninput="setE(${n},${i},this.value)">${esc(r.a[i])}</textarea></label>`).join('')}</div>`}).join('')}
+<div class="card tw"><h2>Compare</h2><table><tr><th></th>${[5,10,15].map(n=>`<th>Week ${n}</th>`).join('')}</tr>${EQ.map((q,i)=>`<tr><td><b>${q}</b></td>${[5,10,15].map(n=>`<td>${esc((D.evals['e'+n]||{a:[]}).a[i])||'<span class="mut">–</span>'}</td>`).join('')}</tr>`).join('')}</table></div>`;
+V.goals=()=>{const G=[['Goal 1 – Sleep','I achieve at least 7 hours of sleep before every class day.','Daily sleep log and weekly sleep statistics.','Enough rest keeps my concentration, mood and energy steady, which every other goal depends on.'],['Goal 2 – Assignments','I complete my assignments at least 2 days before the official deadline.','Assignment tracker showing official deadlines, internal deadlines and completion dates.','A two-day buffer lowers stress, leaves room for feedback and builds reliable planning habits.'],['Goal 3 – Studying','I study for at least 1 hour on at least 5 days every week.','Daily study log and weekly study statistics.','Regular, short sessions build knowledge steadily and prevent last-minute cramming.']];
+return`<h1>My POP Goals</h1><p class="mut">Ramsoedit Dija · 20240522 · B-2 Economie · Persoonlijke Vaardigheden 3 · 26 Oct 2026 – 7 Feb 2027 (15 weeks)</p>${G.map(g=>`<div class="card"><h2>${g[0]}</h2><p>${g[1]}</p><p><b>Measurement:</b> ${g[2]}</p><p><b>Why it matters:</b> ${g[3]}</p></div>`).join('')}
+<div class="card"><h2>Backup and print</h2><p class="mut">Your data is stored in this browser. Copy the backup text to keep a copy, or paste a backup to restore it.</p><p><button class="b p" onclick="document.getElementById('bk').value=JSON.stringify(D,null,1);msg('Backup text created. Copy it to a safe place.')">Export as JSON</button> <button class="b" onclick="impJ()">${pend==='imp'?'Confirm: replace all data':'Import from text'}</button> <button class="b" onclick="printAll()">Print / save as PDF</button></p><textarea id="bk" style="min-height:140px" placeholder="Backup JSON appears here. Paste a backup here to import."></textarea></div>`};
+function impJ(){try{const j=JSON.parse(document.getElementById('bk').value);if(!['sleep','assign','study'].every(k=>Array.isArray(j[k])))throw 0;if(pend!=='imp'){pend='imp';return render()}D=Object.assign({sleep:[],assign:[],study:[],refl:{},evals:{}},j);pend=null;save();msg('Backup imported');render()}catch(e){pend=null;msg('This is not a valid backup.')}}
+function printAll(){const t=(h,r)=>`<table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${r.map(x=>`<tr>${x.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</table>`,s=a=>[...a].sort((x,y)=>x.date<y.date?-1:1);
+let h=`<h1>POP Logboek</h1><p>Ramsoedit Dija · 20240522 · B-2 Economie · Persoonlijke Vaardigheden 3<br>POP period 26 October 2026 – 7 February 2027 (15 weeks)</p><h2>Goal 1 – Sleep</h2>`+t(['Date','Bedtime','Wake-up','Hours','7 h?','Notes'],s(D.sleep).map(x=>[x.date,x.bed,x.wake,x.h.toFixed(1),x.cls?x.h>=7?'Yes':'No':'No class',x.note]))+`<h2>Goal 2 – Assignments</h2>`+t(['Assignment','Official','Internal','Completed','On time?'],D.assign.map(a=>[a.name,a.off,aInt(a),a.done||'',aSt(a)==='early'?'Yes':aSt(a)==='late'?'No':'Not yet']))+`<h2>Goal 3 – Studying</h2>`+t(['Date','Planned','Actual (min)','1 h day?','Studied'],s(D.study).map(x=>[x.date,x.plan,x.min,dayMin(x.date)>=60?'Yes':'No',x.what]))+`<h2>Weekly reflections</h2>`;
+for(let w=1;w<=15;w++)Object.keys(RQ).forEach(k=>{const r=D.refl[w+k];if(r&&r.a.some(Boolean))h+=`<h3>Week ${w} – ${RT[k]}</h3>`+RQ[k].map((q,i)=>`<p><b>${q}</b><br>${esc(r.a[i])}</p>`).join('')});
+h+='<h2>Evaluations</h2>';[5,10,15].forEach(n=>{const r=D.evals['e'+n];if(r)h+=`<h3>Week ${n} (${r.date||''})</h3>`+EQ.map((q,i)=>`<p><b>${q}</b><br>${esc(r.a[i])}</p>`).join('')});
+document.getElementById('print').innerHTML=h;window.print()}
+function render(){document.getElementById('nav').innerHTML='<b>POP Logboek</b>'+NAV.map(n=>`<button class="${n[0]===view?'on':''}" onclick="go('${n[0]}')">${n[1]}</button>`).join('');document.getElementById('main').innerHTML=V[view]()}
+render();
+</script></body></html>
